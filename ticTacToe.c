@@ -26,6 +26,7 @@ void freeBoard(char **board, int size) {
 }
 
 // Função para verificar se há um vencedor
+
 int checkWinner(char **board, int size, char symbol) {
     // Verificar linhas e colunas
     for (int i = 0; i < size; i++) {
@@ -49,10 +50,9 @@ int checkWinner(char **board, int size, char symbol) {
 }
 
 // Função para jogar
-void jogar() {
+void jogar(Jogador *jogadores, int *quantidadeJogadores) {
     int line, column;
     int movement = 1;
-    char crossCircle[5];
 
     // Tamanho do tabuleiro
     int size = 3;
@@ -92,16 +92,16 @@ void jogar() {
 
     while (movement <= size * size) {
         int currentPlayer = (movement % 2) + 1;
-        printf("Jogador %d, digite o numero em linha em que vc deseja marcar \n", currentPlayer);
+        printf("Jogador %d, digite o numero em linha em que você deseja marcar: \n", currentPlayer);
         scanf("%d", &line);
-        printf("Jogador %d, digite o numero em coluna em que vc deseja marcar \n", currentPlayer);
+        printf("Jogador %d, digite o numero em coluna em que você deseja marcar: \n", currentPlayer);
         scanf("%d", &column);
 
         line -= 1;
         column -= 1;
 
         while (board[line][column] != '-') {
-            printf("Esse espaco ja foi selecionado, escolha outro.\n");
+            printf("Este espaço ja foi selecionado, escolha outro.\n");
             printf("Numero da linha: \n");
             scanf("%d", &line);
             printf("Numero da coluna: \n");
@@ -119,7 +119,15 @@ void jogar() {
 
         // Verificar se há um vencedor após cada movimento
         if (checkWinner(board, size, currentSymbol)) {
-            printf("Jogador %d (símbolo %c) venceu!\n", currentPlayer, currentSymbol);
+            printf("Jogador %d (simbolo %c) venceu!\n", currentPlayer, currentSymbol);
+
+            // Atualizar o número de vitórias do jogador no array de jogadores
+            if (currentPlayer == 1) {
+                jogadores[0].vitorias++;
+            } else {
+                jogadores[1].vitorias++;
+            }
+
             break;
         }
     }
@@ -150,19 +158,26 @@ void verRanking(Jogador *jogadores, int quantidadeJogadores) {
 
     // Exibir ranking
     for (int i = 0; i < quantidadeJogadores; i++) {
-        printf("%d. %s - Vitórias: %d\n", i + 1, jogadores[i].nome, jogadores[i].vitorias);
+        printf("%d. %s - Vitorias: %d\n", i + 1, jogadores[i].nome, jogadores[i].vitorias);
     }
 }
 
 // Função para exibir os créditos
 void creditos() {
-    printf("\nDesenvolvido por: \n Antonio Eduardo \n Pedro Lucas Honorato \n David Guimaraes \n Eraldo Neto \n Joao Henrique\n");
+    printf("\nDesenvolvido por: \n Antonio Eduardo \n Pedro Lucas Honorato \n David Guimarães \n Eraldo Neto \n João Henrique\n");
 }
 
 int main() {
     // Inicializar jogadores
-    Jogador jogadores[10]; // Suporta até 10 jogadores
-    int quantidadeJogadores = 0;
+    Jogador jogadores[2]; // Inicialmente, dois jogadores
+    int quantidadeJogadores = 2;
+
+    // Inicializar informações dos jogadores
+    for (int i = 0; i < quantidadeJogadores; i++) {
+        printf("Digite o nome do Jogador %d: ", i + 1);
+        scanf("%s", jogadores[i].nome);
+        jogadores[i].vitorias = 0; // Inicializar o número de vitórias como zero
+    }
 
     int opcao;
 
@@ -177,7 +192,7 @@ int main() {
 
         switch (opcao) {
             case 1:
-                jogar();
+                jogar(jogadores, &quantidadeJogadores);
                 break;
             case 2:
                 verRanking(jogadores, quantidadeJogadores);
@@ -189,7 +204,7 @@ int main() {
                 printf("Saindo do jogo. Obrigado por jogar!\n");
                 break;
             default:
-                printf("Opção inválida. Tente novamente.\n");
+                printf("Opcao invalida. Tente novamente.\n");
                 break;
         }
 
