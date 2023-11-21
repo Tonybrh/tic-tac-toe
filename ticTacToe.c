@@ -92,9 +92,9 @@ void jogar(Jogador *jogadores, int *quantidadeJogadores) {
 
     while (movement <= size * size) {
         int currentPlayer = (movement % 2) + 1;
-        printf("Jogador %d, digite o numero em linha em que você deseja marcar: \n", currentPlayer);
+        printf("Jogador %d, digite o numero em linha em que voce deseja marcar: \n", currentPlayer);
         scanf("%d", &line);
-        printf("Jogador %d, digite o numero em coluna em que você deseja marcar: \n", currentPlayer);
+        printf("Jogador %d, digite o numero em coluna em que voce deseja marcar: \n", currentPlayer);
         scanf("%d", &column);
 
         line -= 1;
