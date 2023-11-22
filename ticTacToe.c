@@ -3,15 +3,25 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-// Estrutura para armazenar informações do jogador
+/*  Estrutura para armazenar informações do jogador
+    A partir disso posso tipar variáveis com o tipo Jogador, contendo os campos nome e vitorias
+*/
 typedef struct
 {
-    char nome[50];
+    char nome[50]; //Array de caracteres de até 50
     int vitorias;
 } Jogador;
 
+/* 
+    A função retorna void, tem como parâmetro um ponteiro de ponteiro para a matriz e um inteiro 
+    que determina o tamanho da matriz
+*/
+
 void displayBoard(char **board, int size)
 {
+    /* 
+        Os loops vão iterar para mostrar o tabuleiro no terminal
+     */
     for (int i = 0; i < size; i++)
     {
         for (int j = 0; j < size; j++)
@@ -21,7 +31,11 @@ void displayBoard(char **board, int size)
         printf("\n");
     }
 }
-
+/* 
+    Função para liberar a memória alocada dinamicamente do tabuleiro
+    recebendo dois parâmetros também, um ponteiro para ponteiro do tabuleiro
+    e o tamanho do tabuleiro em inteiro
+ */
 void freeBoard(char **board, int size)
 {
     for (int i = 0; i < size; i++)
@@ -114,7 +128,7 @@ void jogar(Jogador *jogadores, int *quantidadeJogadores)
         scanf("%d", &line);
         while (line > 3 || line == 0)
         {
-            printf("Respeite os limites da matriz\n");
+            printf("Respeite os limites da tabuleiro\n");
             printf("Jogador %d, digite o numero em linha em que voce deseja marcar: \n", currentPlayer);
             scanf("%d", &line);
         }
@@ -122,7 +136,7 @@ void jogar(Jogador *jogadores, int *quantidadeJogadores)
         scanf("%d", &column);
         while (column > 3 || line == 0)
         {
-            printf("Respeite os limites da matriz\n");
+            printf("Respeite os limites da tabuleiro\n");
             printf("Jogador %d, digite o numero em coluna em que voce deseja marcar: \n", currentPlayer);
             scanf("%d", &column);
         }
@@ -137,7 +151,7 @@ void jogar(Jogador *jogadores, int *quantidadeJogadores)
             scanf("%d", &line);
             while (line > 3 || line == 0)
             {
-                printf("Respeite os limites da matriz\n");
+                printf("Respeite os limites da tabuleiro\n");
                 printf("Jogador %d, digite o numero em linha em que voce deseja marcar: \n", currentPlayer);
                 scanf("%d", &line);
             }
@@ -145,7 +159,7 @@ void jogar(Jogador *jogadores, int *quantidadeJogadores)
             scanf("%d", &column);
             while (column > 3 || line == 0)
             {
-                printf("Respeite os limites da matriz\n");
+                printf("Respeite os limites da tabuleiro\n");
                 printf("Jogador %d, digite o numero em coluna em que voce deseja marcar: \n", currentPlayer);
                 scanf("%d", &column);
             }
